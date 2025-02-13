@@ -29,6 +29,7 @@ def publish_message():
     for run in range(0, num_runs):
         print("run number ", run)
         client.publish("topicrun", run, retain=False, qos=0)
+        time.sleep(30)
         for i in range(trans[run]):
             # Get the current timestamp in milliseconds
             st = [time.time() * 1000] * scale[run]
@@ -38,7 +39,7 @@ def publish_message():
             packed_message = struct.pack(format_string, *st)
             client.publish(topic, packed_message, retain=False, qos=0)
             time.sleep(td[run])
-        time.sleep(5)
+        time.sleep(30)
 
     # Disconnect from the MQTT broker after publishing is complete
     print("Publishing complete, disconnecting from broker...")
